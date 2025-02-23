@@ -14,20 +14,35 @@ const noTexts = [
     "不给按！略略略"
 ];
 
+// **让 NO 按钮持续随机移动**
+function moveNoButton() {
+    let maxWidth = window.innerWidth - noButton.clientWidth;
+    let maxHeight = window.innerHeight - noButton.clientHeight;
+
+    let randomX = Math.random() * maxWidth;
+    let randomY = Math.random() * maxHeight;
+
+    noButton.style.position = "absolute";
+    noButton.style.left = `${randomX}px`;
+    noButton.style.top = `${randomY}px`;
+}
+
+// 每 0.5 秒移动一次
+setInterval(moveNoButton, 500);
+
 // No 按钮点击事件
 noButton.addEventListener("click", function() {
     clickCount++;
 
-    // 让 Yes 变大，每次放大 2 倍
+    // 让 Yes 变大，每次放大 1.2 倍
     let yesSize = 1 + (clickCount * 1.2);
     yesButton.style.transform = `scale(${yesSize})`;
 
-    // 挤压 No 按钮，每次右移 100px
-    let noOffset = clickCount * 50;
-    noButton.style.transform = `translateX(${noOffset}px)`;
+    // **让 No 按钮瞬间随机移动**
+    moveNoButton();
 
     // **新增：让图片和文字往上移动**
-    let moveUp = clickCount * 25; // 每次上移 20px
+    let moveUp = clickCount * 25; // 每次上移 25px
     mainImage.style.transform = `translateY(-${moveUp}px)`;
     questionText.style.transform = `translateY(-${moveUp}px)`;
 
@@ -42,7 +57,6 @@ noButton.addEventListener("click", function() {
     if (clickCount === 3) mainImage.src = "angry.png";   // 生气
     if (clickCount === 4) mainImage.src = "crying.png";  // 哭
     if (clickCount >= 5) mainImage.src = "crying.png";  // 之后一直是哭
-
 });
 
 // Yes 按钮点击后，进入表白成功页面
