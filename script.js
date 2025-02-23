@@ -27,8 +27,8 @@ function moveNoButton() {
     noButton.style.top = `${randomY}px`;
 }
 
-// 每 0.5 秒移动一次
-setInterval(moveNoButton, 500);
+// 每 0.3 秒移动一次
+setInterval(moveNoButton, 300);
 
 // No 按钮点击事件
 noButton.addEventListener("click", function() {
